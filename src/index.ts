@@ -12,7 +12,15 @@ const main = async () => {
     extension: process.env.RINGCENTRAL_EXTENSION,
     password: process.env.RINGCENTRAL_PASSWORD!,
   });
-  console.log(rc.token?.access_token);
+
+  // download the file
+  const r2 = await rc.get<Buffer>(
+    'https://dl.mvp.ringcentral.com/file/1621786746890',
+    undefined,
+    {responseType: 'arraybuffer'}
+  );
+  console.log(r2.data.length);
+
   await rc.revoke();
 };
 
