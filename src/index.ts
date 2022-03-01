@@ -1,4 +1,5 @@
 import RingCentral from '@rc-ex/core';
+import * as fs from 'fs';
 
 const rc = new RingCentral({
   clientId: process.env.RINGCENTRAL_CLIENT_ID,
@@ -15,12 +16,13 @@ const main = async () => {
 
   // download the file
   const r2 = await rc.get<Buffer>(
-    'https://dl.mvp.ringcentral.com/file/1621786746890',
+    // 'https://dl.mvp.ringcentral.com/file/1621786746890',
+    'https://dl.mvp.ringcentral.com/file/1605543747594',
     undefined,
     {responseType: 'arraybuffer'}
   );
   console.log(r2.data.length);
-
+  fs.writeFileSync('temp.png', r2.data);
   await rc.revoke();
 };
 
